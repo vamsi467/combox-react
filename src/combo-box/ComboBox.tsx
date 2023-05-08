@@ -144,22 +144,48 @@ const Dropdown = ({
     )
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent): void => {
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault()
+        setShowMenu(true)
+        break
+      case 'Escape':
+        setShowMenu(false)
+        break
+      default:
+        break
+    }
+  }
+
   return (
-    <div ref={inputRef} className="combo-box-container">
+    <div ref={inputRef} className="combo-box-container" onKeyDown={handleKeyDown}>
       <div className="combo-box" onClick={handleInputClick} >
         {isMulti && (selectedValue.length > 0) && (<div className="">{getDisplay()}</div>)}
 
         <div className="combo-box__input">
-            <input className="search-box " onFocus={handleInputClick} placeholder={isMulti ? placeHolder : getDisplay()} onChange={onSearch} value={searchValue} ref={searchRef} />
+            <input
+                role="combobox"
+                aria-label={placeHolder}
+                aria-haspopup="listbox"
+                aria-expanded={showMenu}
+                aria-controls="dropdown"
+                aria-owns="dropdown"
+                className="search-box"
+                onFocus={handleInputClick}
+                placeholder={isMulti ? placeHolder : getDisplay()}
+                onChange={onSearch}
+                value={searchValue}
+                ref={searchRef} />
           <Icon />
         </div>
       </div>
       {showMenu && (
-        <div className="dropdown">
+        <div className="dropdown" id='dropdown' role="listbox" onKeyDown={handleKeyDown}>
             {getOptions().length === 0 && (<div className='dropdown__item'>{(searchValue.length > 0) ? 'No options for this search' : 'No options'} </div>)}
 
           {getOptions().map((option: Option) => (
-            <div onClick={() => { onItemClick(option) }} className={`dropdown__item ${isSelected(option) ? 'selected' : ''}`} key={option.value}>
+            <div aria-selected={isSelected(option)} onClick={() => { onItemClick(option) }} className={`dropdown__item ${isSelected(option) ? 'selected' : ''}`} key={option.value}>
                 <img width={'24px'} src={option.image} alt={option.label} />
                 <span>{option.label}</span>
             </div>

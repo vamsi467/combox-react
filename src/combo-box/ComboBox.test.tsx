@@ -67,7 +67,7 @@ describe('<ComboBox />', () => {
     const input = container.getElementsByClassName('combo-box')[0]
 
     fireEvent.click(input)
-    const searchInput = getByRole('textbox')
+    const searchInput = getByRole('combobox')
     fireEvent.change(searchInput, { target: { value: 'ba' } })
     expect(queryByText('Apple')).not.toBeInTheDocument()
     expect(getByText('Banana')).toBeInTheDocument()
