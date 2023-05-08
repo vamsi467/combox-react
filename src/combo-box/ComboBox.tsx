@@ -1,40 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './ComboBox.scss'
-interface Option {
-  label: string
-  value: string
-  image?: string
-}
+import DropdownList from './dropdown/DropdownList'
+import Icon from './icon/Icon'
+import { type Option } from './types'
+import Badge from './badge/Badge'
 
-interface DropdownProps {
+interface ComboBoxProps {
   placeHolder: string
   options: Option[]
   isMulti: boolean
   onChange: (newValue: Option[] | Option | null) => void
 }
 
-const Icon = (): JSX.Element => {
-  return (
-        <svg height="20" width="20" viewBox="0 0 20 20">
-            <path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path>
-        </svg>
-  )
-}
-
-const CloseIcon = (): JSX.Element => {
-  return (
-        <svg height="20" width="20" viewBox="0 0 20 20">
-            <path d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"></path>
-        </svg>
-  )
-}
-
-const Dropdown = ({
+const ComboBox = ({
   placeHolder,
   options,
   isMulti,
   onChange
-}: DropdownProps): JSX.Element => {
+}: ComboBoxProps): JSX.Element => {
   const [showMenu, setShowMenu] = useState<boolean>(false)
   const [selectedValue, setSelectedValue] = useState<Option[]>(
     []
@@ -74,15 +57,7 @@ const Dropdown = ({
       return (
                 <div className="seleted-tags">
                     {(selectedValue).map((option: Option) => (
-                        <div key={option.value} >
-                            <span>{option.label}</span>
-                            <button
-                                onClick={(e) => { onTagRemove(e, option) }}
-                                className="close"
-                            >
-                                <CloseIcon />
-                            </button>
-                        </div>
+                        <Badge key={option.value} label={option.label} close={ (e) => { onTagRemove(e, option) }}></Badge>
                     ))}
                 </div>
       )
@@ -114,18 +89,6 @@ const Dropdown = ({
     }
     setSelectedValue(newValue)
     onChange(newValue)
-  }
-
-  const isSelected = (option: Option): boolean => {
-    if (isMulti) {
-      return selectedValue.filter((o) => o.value === option.value).length > 0
-    }
-
-    if (selectedValue == null) {
-      return false
-    }
-
-    return selectedValue.length > 0 && selectedValue[0].value === option.value
   }
 
   const onSearch = (e: any): void => {
@@ -177,23 +140,20 @@ const Dropdown = ({
                         onChange={onSearch}
                         value={searchValue}
                         ref={searchRef} />
-                    <Icon />
+                    <Icon icon='chevron-down' />
                 </div>
             </div>
             {showMenu && (
-                <div className="dropdown" id='dropdown' role="listbox" onKeyDown={handleKeyDown}>
-                    {getOptions().length === 0 && (<div className='dropdown__item'>{(searchValue.length > 0) ? 'No options for this search' : 'No options'} </div>)}
-
-                    {getOptions().map((option: Option) => (
-                        <div aria-selected={isSelected(option)} onClick={() => { onItemClick(option) }} className={`dropdown__item ${isSelected(option) ? 'selected' : ''}`} key={option.value}>
-                            <img width={'24px'} src={option.image} alt={option.label} />
-                            <span>{option.label}</span>
-                        </div>
-                    ))}
-                </div>
+                <DropdownList
+                    onItemClick={onItemClick}
+                    options={getOptions()}
+                    isMulti={isMulti}
+                    searchValue={searchValue}
+                    selectedValue={selectedValue}
+                />
             )}
         </div>
   )
 }
 
-export default Dropdown
+export default ComboBox

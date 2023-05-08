@@ -1,0 +1,29 @@
+.dropdown {
+    position: absolute;
+    transform: translateY(4px);
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: auto;
+    max-height: 150px;
+    background-color: #fff;
+    z-index: 99;
+
+    &__item {
+        padding: 5px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+
+        &:hover {
+            background-color: #b6d8f8;
+        }
+
+
+    }
+
+    .selected {
+        background-color: #5eb1ff;
+        color: #fff;
+    }
+}
