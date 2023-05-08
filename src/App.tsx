@@ -19,19 +19,19 @@ const App = () => {
     <div className='wrapper'>
       <h1>Single Select</h1>
       <ComboBox
-        placeHolder ="Choose a fruit"
+        placeHolder="Choose a fruit"
         isMulti={false}
         options={options}
         onChange={handleOptionChange} />
-        <h1>Multi Select</h1>
+      <h1>Multi Select</h1>
       <ComboBox
-        placeHolder ="Choose a fruit"
+        placeHolder="Choose a fruit"
         isMulti
         options={options}
         onChange={handleOptionChange} />
       <h1>No options</h1>
       <ComboBox
-        placeHolder ="Choose a fruit"
+        placeHolder="Choose a fruit"
         isMulti
         options={[]}
         onChange={handleOptionChange} />
