@@ -29,6 +29,12 @@ const App = () => {
         isMulti
         options={options}
         onChange={handleOptionChange} />
+      <h1>No options</h1>
+      <ComboBox
+        placeHolder ="Choose a fruit"
+        isMulti
+        options={[]}
+        onChange={handleOptionChange} />
     </div>
   )
 }

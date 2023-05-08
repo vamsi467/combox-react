@@ -156,6 +156,7 @@ const Dropdown = ({
       </div>
       {showMenu && (
         <div className="dropdown">
+            {getOptions().length === 0 && (<div className='dropdown__item'>{(searchValue.length > 0) ? 'No options for this search' : 'No options'} </div>)}
 
           {getOptions().map((option: Option) => (
             <div onClick={() => { onItemClick(option) }} className={`dropdown__item ${isSelected(option) ? 'selected' : ''}`} key={option.value}>
