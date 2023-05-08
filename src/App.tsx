@@ -1,24 +1,38 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React from 'react'
-import logo from './logo.svg'
+import ComboBox from './combo-box/ComboBox'
 import './App.css'
 
-const App: React.FunctionComponent = () => (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+const options = [
+  { label: 'Apple', value: 'apple', image: require('./assets/apple.png') },
+  { label: 'Banana', value: 'banana', image: require('./assets/bananas.png') },
+  { label: 'Pear', value: 'pear', image: require('./assets/pear.png') },
+  { label: 'Grape', value: 'grape', image: require('./assets/grapes.png') }
+]
+
+const App = () => {
+  const handleOptionChange = (event: any) => {
+    console.log(event)
+  }
+
+  return (
+    <div className='wrapper'>
+      <h1>Single Select</h1>
+      <ComboBox
+        placeHolder ="Choose a fruit"
+        isMulti={false}
+        isSearchable
+        options={options}
+        onChange={handleOptionChange} />
+        <h1>Multi Select</h1>
+      <ComboBox
+        placeHolder ="Choose a fruit"
+        isMulti
+        isSearchable
+        options={options}
+        onChange={handleOptionChange} />
     </div>
-)
+  )
+}
 
 export default App
