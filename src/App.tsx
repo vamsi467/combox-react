@@ -21,14 +21,12 @@ const App = () => {
       <ComboBox
         placeHolder ="Choose a fruit"
         isMulti={false}
-        isSearchable
         options={options}
         onChange={handleOptionChange} />
         <h1>Multi Select</h1>
       <ComboBox
         placeHolder ="Choose a fruit"
         isMulti
-        isSearchable
         options={options}
         onChange={handleOptionChange} />
     </div>

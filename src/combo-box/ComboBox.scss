@@ -1,46 +1,50 @@
-.combo-box {
+.combo-box-container {
   text-align: left;
   border: 1px solid #5eb1ff;
   position: relative;
   border-radius: 8px;
 
-  .seleted-tags {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 4px;
-
-    &>* {
-      margin-left: 4px;
-      background-color: #9fc3f870;
-      padding: 4px 8px;
-      border-radius: 2px;
+  .combo-box {
+    .seleted-tags {
       display: flex;
-      align-items: center;
-      border-radius: 8px;
+      flex-wrap: wrap;
+      margin: 4px;
 
-      .close {
+      &>* {
+        margin-left: 4px;
+        background-color: #9fc3f870;
+        padding: 4px 8px;
+        border-radius: 2px;
         display: flex;
         align-items: center;
+        border-radius: 8px;
+
+        .close {
+          display: flex;
+          align-items: center;
+          border: none;
+          background: none;
+        }
       }
     }
-  }
 
-  &__input {
-    display: flex;
-    width: 100%;
-
-
-    .search-box {
-      border-radius: 8px;
-      padding: 8px;
-      border: none;
+    &__input {
+      display: flex;
       width: 100%;
 
-      &:focus {
-        outline: none;
-      }
-    }
 
+      .search-box {
+        border-radius: 8px;
+        padding: 8px;
+        border: none;
+        width: 100%;
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+    }
   }
 }
 

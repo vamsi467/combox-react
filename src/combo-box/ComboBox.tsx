@@ -10,7 +10,6 @@ interface DropdownProps {
   placeHolder: string
   options: Option[]
   isMulti: boolean
-  isSearchable: boolean
   onChange: (newValue: Option[] | Option | null) => void
 }
 
@@ -34,7 +33,6 @@ const Dropdown = ({
   placeHolder,
   options,
   isMulti,
-  isSearchable,
   onChange
 }: DropdownProps): JSX.Element => {
   const [showMenu, setShowMenu] = useState<boolean>(false)
@@ -77,13 +75,13 @@ const Dropdown = ({
         <div className="seleted-tags">
           {(selectedValue).map((option: Option) => (
             <div key={option.value} >
-              {option.label}
-              <span
+              <span>{option.label}</span>
+              <button
                 onClick={(e) => { onTagRemove(e, option) }}
                 className="close"
               >
                 <CloseIcon />
-              </span>
+              </button>
             </div>
           ))}
         </div>
@@ -131,6 +129,7 @@ const Dropdown = ({
   }
 
   const onSearch = (e: any): void => {
+    console.log(e.target.value)
     setSearchValue(e.target.value)
   }
 
@@ -146,8 +145,8 @@ const Dropdown = ({
   }
 
   return (
-    <div ref={inputRef} className="combo-box">
-      <div onClick={handleInputClick} >
+    <div ref={inputRef} className="combo-box-container">
+      <div className="combo-box" onClick={handleInputClick} >
         {isMulti && (selectedValue.length > 0) && (<div className="">{getDisplay()}</div>)}
 
         <div className="combo-box__input">
